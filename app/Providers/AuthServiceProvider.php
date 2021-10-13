@@ -20,8 +20,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         //
     }
-
-    /**
+  /**
      * Boot the authentication services for the application.
      *
      * @return void
@@ -32,12 +31,15 @@ class AuthServiceProvider extends ServiceProvider
             if (!$request->hasHeader('Authorization')) {
                 return null;
             }
+
             $authorizationHeader = $request->header('Authorization');
+
             $token = str_replace('Bearer ', '', $authorizationHeader);
             $dadosAutenticacao = JWT::decode($token, env('JWT_KEY'), ['HS256']);
 
-            return User::where('email', $dadosAutenticacao->email)
+            return User::where('id', $dadosAutenticacao->id)
                  ->first();
+
         });
     }
 }
