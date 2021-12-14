@@ -18,8 +18,12 @@ $router->get('/', function () use ($router) {
 });
 
 $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($router) {
+
     $router->get('mybookmarks', function(){
         return "teste";
+    });
+    $router->group(['prefix' => 'moviepop'], function () use ($router) {
+        $router->get('{id}', 'MovieController@showPop');
     });
 });
 
